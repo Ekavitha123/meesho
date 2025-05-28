@@ -1,0 +1,84 @@
+promethis commnads
+
+1   sudo yum install python3-pip -y
+    2   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    3  ls
+    4  unzip awscliv2.zip
+    5  ls
+    6   sudo ./aws/install
+    7   curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+    8   sudo chmod 777 kops
+    9  ls
+   10   sudo mv kops /usr/local/bin/kops
+   11   aws s3api create-bucket   --bucket kavitha52   --region ap-south-1   --create-bucket-configuration LocationConstraint=ap-south-1
+   12  aws configur
+   14   aws s3api create-bucket   --bucket kavitha52   --region ap-south-1   --create-bucket-configuration LocationConstraint=ap-south-1
+   15  kops create cluster   --name=manik8scluster.k8s.local   --state=s3://kavitha52   --zones=ap-south-1a   --node-count=1   --node-size=t2.medium   --master-size=t2.medium   --master-volume-size=20   --node-volume-size=20
+   16  kops update cluster --name manik8scluster.k8s.local --yes --admin
+   17   export KOPS_STATE_STORE=s3://kavitha52
+   18   kops update cluster --name manik8scluster.k8s.local --yes --admin
+   19   kops get cluster
+   20   kops get instances
+   21  curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.33.0/2025-05-01/bin/linux/amd64/kubectl
+   22  ls
+   23   chmod +x ./kubectl
+   24  ls
+   25   mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+   26   echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+   27  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm
+   28   sudo rpm -Uvh minikube-latest.x86_64.rpm
+   29   sudo yum -y install docker
+   30   sudo systemctl start docker
+   31   sudo systemctl enable docker
+   32   sudo chmod 666 /var/run/docker.sock
+   33    minikube start
+   34  ls
+   35  curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+   36  helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+   37   helm repo update
+   38  helm install prometheus prometheus-community/prometheus
+   39  kubectl get service
+   40  kubectl get pods
+   41   kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-ext
+   42   minikube service prometheus-server-ext
+   43  minikube ip
+   44  sudo yum install socat -y
+   45   minikube service prometheus-server-ext
+   46   sudo socat TCP-LISTEN:9090,fork TCP:192.168.49.2:30125   
+   51  helm repo add grafana https://grafana.github.io/helm-charts
+   52  helm repo update
+   53  helm install grafana grafana/grafana
+   54  kubectl get service
+   55  kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-ext
+   56  minikube service grafana-ext
+   57  sudo socat TCP-LISTEN:3000,fork TCP:192.168.49.2:30301
+   
+   59  history
+
+
+
+NODEJS COMMADS
+
+ 1  sudo yum -y install git
+    2  git clone https://github.com/Mani137/photo1.git
+    3  ls
+    4  cd photo1/
+    5  ls
+    6  cd photography/
+    7  ls
+    8  sudo yum -y install nodejs
+    9  node -v
+   10  sudo npm install -g pm2
+   11   npm install -g npm@11.4.1
+   12  pm2 start index.js
+   13  ls
+   14  cd ..
+   15  ls
+   16  cd DOB/
+   17  ls
+   18  sudo yum -y install nginx
+   19  sudo systemctl start nginx
+   20  sudo systemctl enable nginx
+   21  ls
+   22  sudo cp -R * /usr/share/nginx/html/
+   23  sudo systemctl restart nginx
