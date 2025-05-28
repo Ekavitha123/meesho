@@ -1,0 +1,48 @@
+TOMCAT-COMMNADS.
+
+1   sudo yum install java-17-amazon-corretto-headless
+    2  wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.105/bin/apache-tomcat-9.0.105.tar.gz
+    3  ls
+    4  tar -xvf apache-tomcat-9.0.105.tar.gz
+    5  ls
+    6  cd apache-tomcat-9.0.105/
+    7  ls
+    8  sudo find / -name context.xml
+    9  sudo vi /home/ec2-user/apache-tomcat-9.0.105/webapps/docs/META-INF/context.xml
+   10  sudo vi /home/ec2-user/apache-tomcat-9.0.105/webapps/examples/META-INF/context.xml
+   11  sudo vi /home/ec2-user/apache-tomcat-9.0.105/webapps/host-manager/META-INF/context.xml
+   12  sudo vi /home/ec2-user/apache-tomcat-9.0.105/webapps/manager/META-INF/context.xml
+   13  cd conf/
+   14  ls
+   15  sudo vi tomcat-users.xml
+   16  ls
+   17  cd ..
+   18  cd bin/
+   19  ./startup.sh
+   20  cd
+   21  ls
+   22  java --version
+   23  ls
+   24  sudo yum -y installl git
+   25  sudo yum -y install git
+   26  git clone https://github.com/Ekavitha123/JavaWebCalculator.git
+   27  ls
+   28  cd JavaWebCalculator/
+   29  ls
+   30  sudo yum -y install maven
+   31  mvn clean install
+   32  ls
+   33  cd target/
+   34  ls
+   35  cp -R webapp-0.1.war /home/ec2-user/apache-tomcat-9.0.105/webapps/
+   36  cd
+   37  cd apache-tomcat-9.0.105/
+   38  ls
+   39  cd webapps/
+   40  ls
+   41  cd ..
+   42  cd bin
+   43  ./shutdown.sh
+   44  ./startup.sh
+   45  ls
+   46  history
