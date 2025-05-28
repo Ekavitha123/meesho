@@ -1,0 +1,16 @@
+JENKINS - COMMANDS.
+
+1  sudo yum install java-17-amazon-corretto-headless
+    2  sudo wget -O /etc/yum.repos.d/jenkins.repo     https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    3  sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+    4  sudo yum upgrade
+    5  sudo yum install jenkins
+    6  sudo systemctl daemon-reload
+    7  sudo systemctl enable jenkins
+    8  sudo systemctl start jenkins
+    9  sudo systemctl status jenkins
+   10  sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+   11  sudo yum -y install git
+   12  git clone https://github.com/Ekavitha123/JavaWebCalculator.git
+   13  ls
+   14  history
