@@ -1,0 +1,99 @@
+kubernets commands
+ 1   sudo yum install python3-pip -y
+
+go to google install aws cli commands.
+
+    2  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    3  ls
+    4   unzip awscliv2.zip
+    5  ls
+    6   sudo ./aws/install
+
+go to google install kops amazan Linux..
+
+    7   curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+    8   sudo chmod 777 kops
+    9  ls
+   10   sudo mv kops /usr/local/bin/kops
+   11  10  aws s3api create-bucket   --bucket kavitha132  --region ap-south-1   --create-bucket-configuration LocationConstraint=ap-south-1
+   12  aws s3api create-bucket   --bucket kavitha132  --region ap-south-1   --create-bucket-configuration LocationConstraint=ap-south-1
+   13  aws configure
+   18  aws s3api create-bucket   --bucket kavitha132   --region ap-south-1   --create-bucket-configuration LocationConstraint=ap-south-1
+create cluster comman.
+
+   19  kops create cluster   --name=manik8scluster.k8s.local   --state=s3://kavitha132   --zones=ap-south-1a   --node-count=1   --node-size=t2.medium   --master-size=t2.medium   --master-volume-size=20   --node-volume-size=20
+   20   kops update cluster --name manik8scluster.k8s.local --yes --admin
+   21   export KOPS_STATE_STORE=s3://kavitha132
+   22   kops update cluster --name manik8scluster.k8s.local --yes --admin
+   23  kops get cluster
+   24   kops get instances
+
+install  kubectl amazan Linux
+
+   25   curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.33.0/2025-05-01/bin/linux/amd64/kubectl
+   26  ls
+   27  chmod +x ./kubectl
+   28  ls
+   29  mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+   30   echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+
+install minikube in amazon Linux
+
+   31  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm
+   32  sudo rpm -Uvh minikube-latest.x86_64.rpm
+   33   minikube start
+   34   sudo yum -y install docker
+   35   sudo systemctl start docker
+   36   sudo systemctl enable docker
+   37   sudo chmod 666 /var/run/docker.sock
+   38   minikube start
+   39   sudo yum -y install git
+   40  git clone https://github.com/Ekavitha123/E-commerce.git
+   41  ls
+   42   cd E-commerce
+   43  ls
+   44   sudo yum -y install maven
+   45   mvn clean install
+   46  ls
+   47  cd target/
+   48  ls
+   49  sudo vi dockerfile
+   50   docker build -t admin .
+   51   docker login
+   52   docker tag admin kavitha142/admin:latest
+   53   docker push kavitha142/admin:latest
+   54  cd
+   55  sudo vi pod.yaml
+   56  ls
+   57   kubectl apply -f pod.yaml
+   58  kubectl get pods
+   59  docker ps -a
+   60  sudo vi service.yaml
+   61   kubectl apply -f service.yaml
+   62  kubectl get svc
+   63  sudo vi deployment.yaml
+   64   kubectl apply -f deployment.yaml
+   65  kubectl get pods
+   66  kubectl delete pod admin-deployment-5fb6c564dd-9qz6f
+   67  kubectl get pods
+   68  ls
+   69   sudo rm -rf pod.yaml
+   70  kubectl get svc -o wide
+   71   kubectl get pods -o wide
+   72  kubectl get deployments
+   73  kubectl get deployments -o wide
+   74   kubectl port-forward --address 0.0.0.0 service/admin-service 8080:80
+   75  ls
+   76  history
+   77  ls
+   78  sudo vi service.yaml
+   79  sudo vi deployment.yaml
+   80   kubectl port-forward --address 0.0.0.0 service/admin-service 8080:8080
+   81   kubectl port-forward --address 0.0.0.0 service/admin-service 8080:80
+   82  sudo vi service.yaml
+   83  sudo vi deployment.yaml
+   84  kubectl apply -f deployment.yaml
+   85  kubectl apply -f service.yaml
+   86  kubectl get svc
+   87   kubectl port-forward --address 0.0.0.0 service/admin-service 8080:80
+   88  history
