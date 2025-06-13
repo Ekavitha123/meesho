@@ -1,0 +1,71 @@
+kubernets script docker and sonar 
+
+pipeline {
+    tools {
+        maven 'maven'
+    }
+
+    environment {
+        imagename = "kavitha142/project"
+        registryCredential = 'docker'
+        KUBECONFIG_SECRET_ID = 'kubernetes'
+    }
+
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', changelog: false, credentialsId: 'docker', poll: false, url: 'https://github.com/Ekavitha123/E-commerce.git'
+            }
+        }
+
+        stage('Build with Maven') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                  dockerImage = docker.build(imagename)
+                }
+            }
+        }
+
+        stage('Push Image to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push("${BUILD_NUMBER}")
+                        dockerImage.push("latest")
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([file(credentialsId: "${KUBECONFIG_SECRET_ID}", variable: 'KUBECONFIG')]) {
+                    script {
+                        def imageTag = "${imagename}:${BUILD_NUMBER}"
+                    sh """
+                         sed -i 's,TEST_IMAGE_NAME,${imageTag},' deployment.yaml
+                         kubectl --kubeconfig=\$KUBECONFIG get nodes
+                         kubectl apply -f service.yaml --validate=false
+                         kubectl apply -f deployment.yaml
+                     """
+                    }
+                }
+            }
+        }
+
+        stage('Clean Up Docker Images') {
+            steps {
+                sh "docker rmi ${imagename}:${BUILD_NUMBER} || true"
+                sh "docker rmi ${imagename}:latest || true"
+            }
+        }
+    }
+}
